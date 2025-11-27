@@ -157,7 +157,7 @@ function App() {
           <div className="space-y-2">
             <div className="flex justify-center m-auto mb-4 w-28 mask-y-from-70%">
               <img
-                src="https://raw.githubusercontent.com/TatianaAll/quizzApp-CyberHacker/main/src/components/app/assets/logo-GAME.png"
+                src="https://github.com/TatianaAll/quizzApp-CyberHacker/blob/main/src/components/app/assets/Logo-GAME.png?raw=true"
                 alt="CyberHacker's logo"
               />
             </div>
