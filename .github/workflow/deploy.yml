@@ -1,0 +1,68 @@
+# Nom du workflow (visible dans l'onglet Action de Github)
+name: Déploiement Github Pages
+
+#Quand est-ce qu'il se déclenche ?
+on:
+  #lors des push sur la branche main
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Don de permissions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  #job1 : construction de l'application
+  build:
+    name: Construction
+    runs-on: ubuntu-latest
+    steps:
+      #Etape 1
+      - name: Récupération du code
+        uses: actions/checkout@v4
+
+      #Etape 2
+      - name: Installation Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      #Etape 3: installation des mêmes dépendances que celles du projet
+      - name: Installation des dépendances
+        run: npm ci
+
+      #Etape 4 Construire l'application pour la prod
+      - name: Construction de l'application
+        run: npm run build
+
+      #Etape 5 Préparer Github Pages
+      - name: Configuration de Github Pages
+        uses: actions/configure-pages@v4
+
+      #Etape 6 Uploader le dossier dist
+      - name: Upload des fichiers
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist"
+
+  # Job 2: deploy
+  deploy:
+    name: Déploiement
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déploiement sur github-pages
+        id: deployment
+        uses: actions/deploy-pages@v4
