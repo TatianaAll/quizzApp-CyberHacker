@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+body {
+  @apply bg-[#230527] text-white min-h-screen flex flex-col items-center;
+}
