@@ -33,7 +33,7 @@ function PlayMenu() {
             setMessage("");
             setIcon(null);
           }}
-          text="Facile"
+          text="Easy"
         />
         <Button
           onClic={() => {
@@ -41,7 +41,7 @@ function PlayMenu() {
             setMessage("");
             setIcon(null);
           }}
-          text="Moyen"
+          text="Medium"
         />
         <Button
           onClic={() => {
@@ -49,7 +49,7 @@ function PlayMenu() {
             setMessage("");
             setIcon(null);
           }}
-          text="Difficile"
+          text="Hard"
         />
       </div>
 
